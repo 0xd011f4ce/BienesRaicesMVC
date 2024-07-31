@@ -1,0 +1,26 @@
+{
+  "name": "bienesraices_mvc",
+  "version": "1.0.0",
+  "description": "Mi primer proyecto de Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0xd011f4ce/bienesraices_mvc.git"
+  },
+  "keywords": [
+    "MVC",
+    "Pug",
+    "Tailwind",
+    "MySQL",
+    "Sequelize"
+  ],
+  "author": "0xd011f4ce",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/0xd011f4ce/bienesraices_mvc/issues"
+  },
+  "homepage": "https://github.com/0xd011f4ce/bienesraices_mvc#readme"
+}
