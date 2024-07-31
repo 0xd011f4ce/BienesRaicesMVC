@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/0xd011f4ce/bienesraices_mvc/issues"
   },
-  "homepage": "https://github.com/0xd011f4ce/bienesraices_mvc#readme"
+  "homepage": "https://github.com/0xd011f4ce/bienesraices_mvc#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
 }
