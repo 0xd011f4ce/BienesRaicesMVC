@@ -1,12 +1,9 @@
 import express from "express";
+import { formLogin } from "../controllers/userController.js";
 
 const router = express.Router();
 
 // routing
-router.get("/login", function (req, res) {
-  res.render("auth/login", {
-    authenticated: true,
-  });
-});
+router.get("/login", formLogin);
 
 export default router;
