@@ -1,7 +1,9 @@
 const formLogin = (req, res) => {
-  res.render("auth/login", {
-    authenticated: true,
-  });
+  res.render("auth/login", {});
 };
 
-export { formLogin };
+const formSignup = (req, res) => {
+  res.render("auth/signup", {});
+};
+
+export { formLogin, formSignup };
