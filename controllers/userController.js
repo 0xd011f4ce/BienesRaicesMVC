@@ -1,9 +1,19 @@
 const formLogin = (req, res) => {
-  res.render("auth/login", {});
+  res.render("auth/login", {
+    page: "Log In",
+  });
 };
 
 const formSignup = (req, res) => {
-  res.render("auth/signup", {});
+  res.render("auth/signup", {
+    page: "Sign Up",
+  });
 };
 
-export { formLogin, formSignup };
+const formForgotPassword = (req, res) => {
+  res.render("auth/forgot-password", {
+    page: "Forgot Password",
+  });
+};
+
+export { formLogin, formSignup, formForgotPassword };

@@ -1,10 +1,15 @@
 import express from "express";
-import { formLogin, formSignup } from "../controllers/userController.js";
+import {
+  formForgotPassword,
+  formLogin,
+  formSignup,
+} from "../controllers/userController.js";
 
 const router = express.Router();
 
 // routing
 router.get("/login", formLogin);
 router.get("/signup", formSignup);
+router.get("/forgot-password", formForgotPassword);
 
 export default router;
