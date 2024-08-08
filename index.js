@@ -1,7 +1,16 @@
 import express from "express";
 import userRoutes from "./routes/userRoutes.js";
+import db from "./config/db.js";
 
 const app = express();
+
+// db connection
+try {
+  await db.authenticate();
+  console.log("Connection has been established successfully.");
+} catch (error) {
+  console.log(error);
+}
 
 // enable pug
 app.set("view engine", "pug");
