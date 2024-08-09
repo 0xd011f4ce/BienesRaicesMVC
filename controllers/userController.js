@@ -10,10 +10,12 @@ const formSignup = (req, res) => {
   });
 };
 
+const registerUser = (req, res) => {};
+
 const formForgotPassword = (req, res) => {
   res.render("auth/forgot-password", {
     page: "Forgot Password",
   });
 };
 
-export { formLogin, formSignup, formForgotPassword };
+export { formLogin, formSignup, registerUser, formForgotPassword };
