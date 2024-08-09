@@ -66,8 +66,15 @@ const registerUser = async (req, res) => {
     });
   }
 
-  const user = await User.create(req.body);
-  res.json(user);
+  // store user
+  const { username, email, password } = req.body;
+
+  await User.create({
+    username,
+    email,
+    password,
+    token: 123,
+  });
 };
 
 const formForgotPassword = (req, res) => {
