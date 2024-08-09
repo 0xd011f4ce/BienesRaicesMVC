@@ -31,7 +31,12 @@ const registerUser = async (req, res) => {
     .run(req);
 
   let result = validationResult(req);
-  res.json(result.array());
+  if (!result.isEmpty()) {
+    return res.render("auth/signup", {
+      page: "Sign Up",
+      errors: result.array(),
+    });
+  }
 
   const user = await User.create(req.body);
   res.json(user);
