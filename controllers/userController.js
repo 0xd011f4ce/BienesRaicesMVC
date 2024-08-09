@@ -10,7 +10,9 @@ const formSignup = (req, res) => {
   });
 };
 
-const registerUser = (req, res) => {};
+const registerUser = (req, res) => {
+  console.log(req.body);
+};
 
 const formForgotPassword = (req, res) => {
   res.render("auth/forgot-password", {

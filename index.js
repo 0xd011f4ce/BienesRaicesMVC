@@ -12,6 +12,9 @@ try {
   console.log(error);
 }
 
+// enable form data
+app.use(express.urlencoded({ extended: true }));
+
 // enable pug
 app.set("view engine", "pug");
 app.set("views", "./views");
