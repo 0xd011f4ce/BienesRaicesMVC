@@ -45,6 +45,27 @@ const registerUser = async (req, res) => {
     });
   }
 
+  // verify user is not duplicated
+  const exists = await User.findOne({
+    where: {
+      email: req.body.email,
+    },
+  });
+  if (exists) {
+    return res.render("auth/signup", {
+      page: "Sign Up",
+      errors: [
+        {
+          msg: "Email is already in use",
+        },
+      ],
+      user: {
+        username: req.body.username,
+        email: req.body.email,
+      },
+    });
+  }
+
   const user = await User.create(req.body);
   res.json(user);
 };
