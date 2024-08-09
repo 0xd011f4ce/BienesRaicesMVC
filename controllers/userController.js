@@ -111,6 +111,14 @@ const confirmAccount = async (req, res) => {
   }
 
   // confirm account
+  user.token = null;
+  user.confirmed = true;
+  await user.save();
+
+  return res.render("auth/confirm-account", {
+    page: "Confirm Account",
+    message: "Account has been confirmed, you can log in now!",
+  });
 };
 
 const formForgotPassword = (req, res) => {
