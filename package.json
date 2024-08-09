@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/0xd011f4ce/bienesraices_mvc#readme",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mysql2": "^3.11.0",
     "pug": "^3.0.3",
