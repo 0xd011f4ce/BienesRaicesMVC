@@ -13,6 +13,7 @@ const formLogin = (req, res) => {
 const formSignup = (req, res) => {
   res.render("auth/signup", {
     page: "Sign Up",
+    csrfToken: req.csrfToken(),
   });
 };
 
@@ -44,6 +45,7 @@ const registerUser = async (req, res) => {
         username: req.body.username,
         email: req.body.email,
       },
+      csrfToken: req.csrfToken(),
     });
   }
 
@@ -65,6 +67,7 @@ const registerUser = async (req, res) => {
         username: req.body.username,
         email: req.body.email,
       },
+      csrfToken: req.csrfToken(),
     });
   }
 

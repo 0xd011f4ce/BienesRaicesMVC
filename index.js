@@ -1,4 +1,7 @@
 import express from "express";
+import csurf from "csurf";
+import cookieParser from "cookie-parser";
+
 import userRoutes from "./routes/userRoutes.js";
 import db from "./config/db.js";
 
@@ -15,6 +18,12 @@ try {
 
 // enable form data
 app.use(express.urlencoded({ extended: true }));
+
+// enable cookie parser
+app.use(cookieParser());
+
+// enable CSRF
+app.use(csurf({ cookie: true }));
 
 // enable pug
 app.set("view engine", "pug");
