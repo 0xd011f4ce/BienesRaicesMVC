@@ -16,11 +16,11 @@ block content
                 form.space-y-4(method="POST" action="/auth/signup")
                     div
                         label.block.text-sm.uppercase.text-gray-500.mb-2.font-bold(for="name") Full name
-                        input#name.w-full.px-3.py-2.border.border-gray-300.rounded.placeholder-gray-400(placeholder="Full Name" type="text" name="name")
+                        input#name.w-full.px-3.py-2.border.border-gray-300.rounded.placeholder-gray-400(placeholder="Full Name" type="text" name="name" value=user ? user.name : "")
                     
                     div
                         label.block.text-sm.uppercase.text-gray-500.mb-2.font-bold(for="email") Email
-                        input#email.w-full.px-3.py-2.border.border-gray-300.rounded.placeholder-gray-400(placeholder="Email address" type="email" name="email")
+                        input#email.w-full.px-3.py-2.border.border-gray-300.rounded.placeholder-gray-400(placeholder="Email address" type="email" name="email" value=user ? user.email : "")
 
                     div
                         label.block.text-sm.uppercase.text-gray-500.mb-2.font-bold(for="password") Password

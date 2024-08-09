@@ -35,6 +35,10 @@ const registerUser = async (req, res) => {
     return res.render("auth/signup", {
       page: "Sign Up",
       errors: result.array(),
+      user: {
+        name: req.body.name,
+        email: req.body.email,
+      },
     });
   }
 
