@@ -92,11 +92,23 @@ const registerUser = async (req, res) => {
   });
 };
 
-const confirmAccount = (req, res) => {
+const confirmAccount = async (req, res) => {
   const { token } = req.params;
-  console.log(token);
 
   // verify if token is valid
+  const user = await User.findOne({
+    where: {
+      token,
+    },
+  });
+
+  if (!user) {
+    return res.render("auth/confirm-account", {
+      page: "Confirm Account",
+      error: true,
+      message: "Invalid token",
+    });
+  }
 
   // confirm account
 };
