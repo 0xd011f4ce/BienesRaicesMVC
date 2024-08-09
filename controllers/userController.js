@@ -16,7 +16,10 @@ const formSignup = (req, res) => {
 
 const registerUser = async (req, res) => {
   // validation
-  await check("name").notEmpty().withMessage("Name cannot be empty").run(req);
+  await check("username")
+    .notEmpty()
+    .withMessage("Name cannot be empty")
+    .run(req);
   await check("email")
     .isEmail()
     .withMessage("Please enter a valid email address")
@@ -36,7 +39,7 @@ const registerUser = async (req, res) => {
       page: "Sign Up",
       errors: result.array(),
       user: {
-        name: req.body.name,
+        username: req.body.username,
         email: req.body.email,
       },
     });
