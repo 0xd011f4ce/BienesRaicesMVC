@@ -1,3 +1,5 @@
+import { check, validationResult } from "express-validator";
+
 import User from "../models/user.js";
 
 const formLogin = (req, res) => {
@@ -13,6 +15,24 @@ const formSignup = (req, res) => {
 };
 
 const registerUser = async (req, res) => {
+  // validation
+  await check("name").notEmpty().withMessage("Name cannot be empty").run(req);
+  await check("email")
+    .isEmail()
+    .withMessage("Please enter a valid email address")
+    .run(req);
+  await check("password")
+    .isLength({ min: 6 })
+    .withMessage("Password must be at least 6 characters")
+    .run(req);
+  await check("password2")
+    .equals("password")
+    .withMessage("Password confirmation does not match")
+    .run(req);
+
+  let result = validationResult(req);
+  res.json(result.array());
+
   const user = await User.create(req.body);
   res.json(user);
 };
