@@ -4,6 +4,7 @@ import {
   formLogin,
   formSignup,
   registerUser,
+  confirmAccount,
 } from "../controllers/userController.js";
 
 const router = express.Router();
@@ -13,6 +14,8 @@ router.get("/login", formLogin);
 
 router.get("/signup", formSignup);
 router.post("/signup", registerUser);
+
+router.get("/confirm/:token", confirmAccount);
 
 router.get("/forgot-password", formForgotPassword);
 

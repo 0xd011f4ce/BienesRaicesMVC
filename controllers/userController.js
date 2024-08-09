@@ -92,10 +92,25 @@ const registerUser = async (req, res) => {
   });
 };
 
+const confirmAccount = (req, res) => {
+  const { token } = req.params;
+  console.log(token);
+
+  // verify if token is valid
+
+  // confirm account
+};
+
 const formForgotPassword = (req, res) => {
   res.render("auth/forgot-password", {
     page: "Forgot Password",
   });
 };
 
-export { formLogin, formSignup, registerUser, formForgotPassword };
+export {
+  formLogin,
+  formSignup,
+  registerUser,
+  confirmAccount,
+  formForgotPassword,
+};

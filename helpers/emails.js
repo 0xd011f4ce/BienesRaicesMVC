@@ -21,7 +21,7 @@ const emailSignUp = async (data) => {
     html: `
       <h1>Confirm your account</h1>
       <p>Hello ${name}, click the following link to confirm your account</p>
-      <a href="${process.env.HOST}/confirm/${token}">Confirm your account</a> `,
+      <a href="${process.env.HOST}/auth/confirm/${token}">Confirm your account</a> `,
   });
 };
 
