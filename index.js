@@ -7,6 +7,7 @@ const app = express();
 // db connection
 try {
   await db.authenticate();
+  db.sync();
   console.log("Connection has been established successfully.");
 } catch (error) {
   console.log(error);
