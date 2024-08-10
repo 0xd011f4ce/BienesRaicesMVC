@@ -2,7 +2,7 @@ import { check, validationResult } from "express-validator";
 import bcrypt from "bcrypt";
 
 import User from "../models/user.js";
-import { generateId } from "../helpers/tokens.js";
+import { generateJWT, generateId } from "../helpers/tokens.js";
 import { emailSignUp, emailForgotPass } from "../helpers/emails.js";
 
 const formLogin = (req, res) => {
@@ -67,6 +67,8 @@ const authenticate = async (req, res) => {
   }
 
   // authenticate user
+  const token = generateJWT({ id: user.id, name: user.username });
+  console.log(token);
 };
 
 const formSignup = (req, res) => {
