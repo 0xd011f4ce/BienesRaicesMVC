@@ -58,6 +58,15 @@ const authenticate = async (req, res) => {
   }
 
   // check if password is correct
+  if (!user.verifyPassword(password)) {
+    return res.render("auth/login", {
+      page: "Log In",
+      csrfToken: req.csrfToken(),
+      errors: [{ msg: "Incorrect password" }],
+    });
+  }
+
+  // authenticate user
 };
 
 const formSignup = (req, res) => {
