@@ -1,4 +1,5 @@
 import { check, validationResult } from "express-validator";
+import bcrypt from "bcrypt";
 
 import User from "../models/user.js";
 import { generateId } from "../helpers/tokens.js";
@@ -182,9 +183,71 @@ const resetPassword = async (req, res) => {
   });
 };
 
-const checkToken = (req, res) => {};
+const checkToken = async (req, res) => {
+  const { token } = req.params;
 
-const newPassword = (req, res) => {};
+  const user = await User.findOne({
+    where: {
+      token,
+    },
+  });
+
+  if (!user) {
+    return res.render("auth/confirm-account", {
+      page: "Reset Password",
+      error: true,
+      message: "Invalid token",
+    });
+  }
+
+  // display form to modify password
+  res.render("auth/reset-password", {
+    page: "Reset Password",
+    csrfToken: req.csrfToken(),
+  });
+};
+
+const newPassword = async (req, res) => {
+  // validate password
+  await check("password")
+    .isLength({ min: 6 })
+    .withMessage("Password must be at least 6 characters.")
+    .run(req);
+  await check("password2")
+    .equals("password")
+    .withMessage("Password confirmation does not match.")
+    .run(req);
+
+  let result = validationResult(req);
+  if (!result.isEmpty()) {
+    return res.render("auth/reset-password", {
+      page: "Reset Password",
+      csrfToken: req.csrfToken(),
+      errors: result.array(),
+    });
+  }
+
+  const { token } = req.params;
+  const { password } = req.body;
+
+  // check who the user is
+  const user = await User.findOne({
+    where: {
+      token,
+    },
+  });
+
+  // hash password and store it in the database
+  const salt = await bcrypt.genSalt(10);
+  user.password = await bcrypt.hash(password, salt);
+  user.token = null;
+  await user.save();
+
+  res.render("auth/confirm-account", {
+    page: "Reset Password",
+    message: "Password has been updated, you can log in now!",
+  });
+};
 
 export {
   formLogin,
