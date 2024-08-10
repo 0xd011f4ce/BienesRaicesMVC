@@ -2,6 +2,7 @@ import express from "express";
 import {
   formForgotPassword,
   formLogin,
+  authenticate,
   formSignup,
   registerUser,
   confirmAccount,
@@ -14,6 +15,7 @@ const router = express.Router();
 
 // routing
 router.get("/login", formLogin);
+router.post("/login", authenticate);
 
 router.get("/signup", formSignup);
 router.post("/signup", registerUser);

@@ -8,7 +8,29 @@ import { emailSignUp, emailForgotPass } from "../helpers/emails.js";
 const formLogin = (req, res) => {
   res.render("auth/login", {
     page: "Log In",
+    csrfToken: req.csrfToken(),
   });
+};
+
+const authenticate = async (req, res) => {
+  // validation
+  await check("email")
+    .isEmail()
+    .withMessage("Please enter a valid email address")
+    .run(req);
+  await check("password")
+    .notEmpty()
+    .withMessage("Password cannot be empty")
+    .run(req);
+
+  let result = validationResult(req);
+  if (!result.isEmpty()) {
+    return res.render("auth/login", {
+      page: "Log In",
+      csrfToken: req.csrfToken(),
+      errors: result.array(),
+    });
+  }
 };
 
 const formSignup = (req, res) => {
@@ -251,6 +273,7 @@ const newPassword = async (req, res) => {
 
 export {
   formLogin,
+  authenticate,
   formSignup,
   registerUser,
   confirmAccount,
