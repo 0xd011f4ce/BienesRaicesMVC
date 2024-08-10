@@ -66,9 +66,14 @@ const authenticate = async (req, res) => {
     });
   }
 
-  // authenticate user
+  // authenticate user and store token in cookie
   const token = generateJWT({ id: user.id, name: user.username });
-  console.log(token);
+
+  return res
+    .cookie("_token", token, {
+      httpOnly: true,
+    })
+    .redirect("/my-properties");
 };
 
 const formSignup = (req, res) => {
