@@ -2,7 +2,7 @@ import { check, validationResult } from "express-validator";
 
 import User from "../models/user.js";
 import { generateId } from "../helpers/tokens.js";
-import { emailSignUp } from "../helpers/emails.js";
+import { emailSignUp, emailForgotPass } from "../helpers/emails.js";
 
 const formLogin = (req, res) => {
   res.render("auth/login", {
@@ -149,7 +149,42 @@ const resetPassword = async (req, res) => {
   }
 
   // look for user
+  const { email } = req.body;
+  const user = await User.findOne({
+    where: {
+      email,
+    },
+  });
+
+  if (!user) {
+    return res.render("auth/forgot-password", {
+      page: "Forgot Password",
+      csrfToken: req.csrfToken(),
+      errors: [{ msg: "User not found" }],
+    });
+  }
+
+  // generate new token and send email address
+  user.token = generateId();
+  await user.save();
+
+  // send email
+  emailForgotPass({
+    name: user.username,
+    email: user.email,
+    token: user.token,
+  });
+
+  // render message
+  res.render("templates/message", {
+    page: "Forgot Password",
+    message: "We've sent an email to reset your password",
+  });
 };
+
+const checkToken = (req, res) => {};
+
+const newPassword = (req, res) => {};
 
 export {
   formLogin,
@@ -158,4 +193,6 @@ export {
   confirmAccount,
   formForgotPassword,
   resetPassword,
+  checkToken,
+  newPassword,
 };
