@@ -31,6 +31,33 @@ const authenticate = async (req, res) => {
       errors: result.array(),
     });
   }
+
+  const { email, password } = req.body;
+
+  // check if user exists
+  const user = await User.findOne({
+    where: {
+      email,
+    },
+  });
+  if (!user) {
+    return res.render("auth/login", {
+      page: "Log In",
+      csrfToken: req.csrfToken(),
+      errors: [{ msg: "Invalid email or password" }],
+    });
+  }
+
+  // check if user is confirmed
+  if (!user.confirmed) {
+    return res.render("auth/login", {
+      page: "Log In",
+      csrfToken: req.csrfToken(),
+      errors: [{ msg: "Please confirm your account" }],
+    });
+  }
+
+  // check if password is correct
 };
 
 const formSignup = (req, res) => {
