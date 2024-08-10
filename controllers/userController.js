@@ -127,7 +127,28 @@ const confirmAccount = async (req, res) => {
 const formForgotPassword = (req, res) => {
   res.render("auth/forgot-password", {
     page: "Forgot Password",
+    csrfToken: req.csrfToken(),
   });
+};
+
+const resetPassword = async (req, res) => {
+  // validation
+  await check("email")
+    .isEmail()
+    .withMessage("Please enter a valid email address")
+    .run(req);
+
+  let result = validationResult(req);
+
+  if (!result.isEmpty()) {
+    return res.render("auth/forgot-password", {
+      page: "Forgot Password",
+      csrfToken: req.csrfToken(),
+      errors: result.array(),
+    });
+  }
+
+  // look for user
 };
 
 export {
@@ -136,4 +157,5 @@ export {
   registerUser,
   confirmAccount,
   formForgotPassword,
+  resetPassword,
 };
