@@ -5,4 +5,12 @@ const admin = (req, res) => {
   });
 };
 
-export { admin };
+// form to create a new property
+const propertyCreate = (req, res) => {
+  res.render("properties/create", {
+    page: "Create Property",
+    header: true,
+  });
+};
+
+export { admin, propertyCreate };
