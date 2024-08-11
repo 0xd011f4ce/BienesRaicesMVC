@@ -19,6 +19,9 @@
         const mapa = L.map("map").setView([lat, lng], 16);
         let marker;
 
+        // use provider and geocoder
+        const geocodeService = L.esri.Geocoding.geocodeService();
+
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
           maxZoom: 19,
           attribution:
@@ -33,10 +36,19 @@
         // detect marker movement
         marker.on("moveend", function (e) {
           marker = e.target;
-
           const pos = marker.getLatLng();
 
           mapa.panTo(new L.LatLng(pos.lat, pos.lng));
+
+          // obtainer street name from lat and lng
+          geocodeService
+            .reverse()
+            .latlng(pos, 16)
+            .run(function (err, res) {
+              console.log(res);
+
+              marker.bindPopup(res.address.LongLabel);
+            });
         });
       },
       function (error) {
