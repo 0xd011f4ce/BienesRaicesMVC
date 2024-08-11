@@ -1,8 +1,7 @@
 import categories from "./categories.js";
 import prices from "./prices.js";
 
-import Category from "../models/category.js";
-import Price from "../models/price.js";
+import { Category, Price } from "../models/index.js";
 
 import db from "../config/db.js";
 
