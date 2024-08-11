@@ -17,10 +17,17 @@
         const lat = pos.coords.latitude;
         const lng = pos.coords.longitude;
         const mapa = L.map("map").setView([lat, lng], 16);
+        let marker;
+
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
           maxZoom: 19,
           attribution:
             'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+        }).addTo(mapa);
+
+        marker = new L.marker([lat, lng], {
+          draggable: true,
+          autoPan: true,
         }).addTo(mapa);
       },
       function (error) {
