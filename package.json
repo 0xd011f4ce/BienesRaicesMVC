@@ -8,7 +8,8 @@
     "start": "nodemon index",
     "css": "postcss public/css/tailwind.css -o public/css/app.css --watch",
     "js": "webpack --watch",
-    "dev": "concurrently \"npm run css\" \"npm run js\" \"npm start\""
+    "dev": "concurrently \"npm run css\" \"npm run js\" \"npm start\"",
+    "db:import": "node seed/seeder.js -i"
   },
   "repository": {
     "type": "git",
