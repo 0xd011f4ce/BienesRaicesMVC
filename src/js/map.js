@@ -29,6 +29,15 @@
           draggable: true,
           autoPan: true,
         }).addTo(mapa);
+
+        // detect marker movement
+        marker.on("moveend", function (e) {
+          marker = e.target;
+
+          const pos = marker.getLatLng();
+
+          mapa.panTo(new L.LatLng(pos.lat, pos.lng));
+        });
       },
       function (error) {
         console.error(error);
