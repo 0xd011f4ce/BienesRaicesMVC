@@ -7,7 +7,8 @@
   "scripts": {
     "start": "nodemon index",
     "css": "postcss public/css/tailwind.css -o public/css/app.css --watch",
-    "js": "webpack --watch"
+    "js": "webpack --watch",
+    "dev": "concurrently \"npm run css\" \"npm run js\" \"npm start\""
   },
   "repository": {
     "type": "git",
@@ -41,6 +42,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
+    "concurrently": "^8.2.2",
     "nodemon": "^3.1.4",
     "postcss": "^8.4.41",
     "postcss-cli": "^11.0.0",
