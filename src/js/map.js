@@ -48,6 +48,14 @@
               console.log(res);
 
               marker.bindPopup(res.address.LongLabel);
+
+              // fill fields
+              document.querySelector(".street").textContent = res
+                ? res.address.Address
+                : "Address not found";
+              document.querySelector("#street").value = res.address.Address;
+              document.querySelector("#lat").value = res.latlng.lat;
+              document.querySelector("#lng").value = res.latlng.lng;
             });
         });
       },
