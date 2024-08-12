@@ -1,3 +1,5 @@
+import { validationResult } from "express-validator";
+
 import Price from "../models/price.js";
 import Category from "../models/category.js";
 
@@ -19,9 +21,32 @@ const propertyCreate = async (req, res) => {
   res.render("properties/create", {
     page: "Create Property",
     header: true,
+    csrfToken: req.csrfToken(),
     categories,
     prices,
   });
 };
 
-export { admin, propertyCreate };
+// save a new property
+const propertySave = async (req, res) => {
+  // validation result
+  let result = validationResult(req);
+
+  if (!result.isEmpty()) {
+    const [categories, prices] = await Promise.all([
+      Category.findAll(),
+      Price.findAll(),
+    ]);
+
+    return res.render("properties/create", {
+      page: "Create Property",
+      header: true,
+      csrfToken: req.csrfToken(),
+      categories,
+      prices,
+      errors: result.array(),
+    });
+  }
+};
+
+export { admin, propertyCreate, propertySave };
