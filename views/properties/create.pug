@@ -24,11 +24,11 @@ block content
 
                     div
                         label.block.text-sm.uppercase.text-gray-500.mb-2.font-bold(for="title") Ad Title
-                        input#title.w-full.px-3.py-2.border.border-gray-300.rounded.placeholder-gray-400(placeholder="Title" type="text" name="title")
+                        input#title.w-full.px-3.py-2.border.border-gray-300.rounded.placeholder-gray-400(placeholder="Title" type="text" name="title" value=data.title ? data.title : "")
 
                     div
                         label.block.text-sm.uppercase.text-gray-500.mb-2.font-bold(for="description") Description
-                        textarea#description.w-full.px-3.py-2.border.border-gray-300.rounded.placeholder-gray-400(placeholder="Ad Description" name="description")
+                        textarea#description.w-full.px-3.py-2.border.border-gray-300.rounded.placeholder-gray-400(placeholder="Ad Description" name="description")= data.description ? data.description : ""
                     
                     div(class="md:flex md:gap-4 space-y-5 md:space-y-0")
                         div(class="md:w-1/2")
@@ -36,14 +36,14 @@ block content
                             select#category.w-full.px-3.py-2.border.border-gray-300.rounded.placeholder-gray-400(placeholder="Category" type="text" name="category")
                                 option(value="") - Select an option -
                                 each category in categories
-                                    option(value=category.id)= category.name
+                                    option(value=category.id selected=data.category ? data.category == category.id : false)= category.name
                         
                         div(class="md:w-1/2")
                             label.block.text-sm.uppercase.text-gray-500.mb-2.font-bold(for="price") Price
                             select#price.w-full.px-3.py-2.border.border-gray-300.rounded.placeholder-gray-400(placeholder="Price" type="text" name="price")
                                 option(value="") - Select an option -
                                 each price in prices 
-                                    option(value=price.id)= price.name
+                                    option(value=price.id selected=data.price ? data.price == price.id : false)= price.name
 
                     div(class="md:flex md:gap-4 space-y-5 md:space-y-0")
                         div(class="md:w-1/3")
@@ -52,7 +52,7 @@ block content
                                 option(value="") - Select an option -
                                 - var n = 1;
                                 while (n <= 5)
-                                    option(value=n)= n
+                                    option(value=n selected=data.rooms ? data.rooms == n : false)= n
                                     - n++; 
                         
                         div(class="md:w-1/3")
@@ -61,7 +61,7 @@ block content
                                 option(value="") - Select an option -
                                 - var n = 1;
                                 while (n <= 5)
-                                    option(value=n)= n
+                                    option(value=n selected=data.garages ? data.garages == n : false)= n
                                     - n++; 
 
                         div(class="md:w-1/3")
@@ -70,7 +70,7 @@ block content
                                 option(value="") - Select an option -
                                 - var n = 1;
                                 while (n <= 5)
-                                    option(value=n)= n
+                                    option(value=n selected=data.wc ? data.wc == n : false)= n
                                     - n++;
                         
                     div.border-gray-200.border-t.py-5.space-y-5
@@ -79,11 +79,11 @@ block content
                         #map.h-96
 
                         div 
-                            p.street
+                            p.street= data.street ? data.street : ""
                         
-                        input(type="hidden" name="street" id="street")
-                        input(type="hidden" name="lat" id="lat")
-                        input(type="hidden" name="lng" id="lng")
+                        input(type="hidden" name="street" id="street" value=data.street ? data.street : "")
+                        input(type="hidden" name="lat" id="lat" value=data.lat ? data.lat : "")
+                        input(type="hidden" name="lng" id="lng" value=data.lng ? data.lng : "")
 
                     input(class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 rounded text-white font-bold uppercase cursor-pointer" type="submit" value="Create Ad")
 

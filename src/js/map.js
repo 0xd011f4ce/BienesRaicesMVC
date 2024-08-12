@@ -14,8 +14,9 @@
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       async function (pos) {
-        const lat = pos.coords.latitude;
-        const lng = pos.coords.longitude;
+        const lat = document.querySelector("#lat").value || pos.coords.latitude;
+        const lng =
+          document.querySelector("#lng").value || pos.coords.longitude;
         const mapa = L.map("map").setView([lat, lng], 16);
         let marker;
 

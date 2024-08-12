@@ -24,6 +24,7 @@ const propertyCreate = async (req, res) => {
     csrfToken: req.csrfToken(),
     categories,
     prices,
+    data: {},
   });
 };
 
@@ -45,6 +46,7 @@ const propertySave = async (req, res) => {
       categories,
       prices,
       errors: result.array(),
+      data: req.body,
     });
   }
 };
