@@ -63,6 +63,8 @@ const propertySave = async (req, res) => {
     category: categoryId,
   } = req.body;
 
+  const { id: userId } = req.user;
+
   try {
     const propertySaved = await Property.create({
       title,
@@ -75,7 +77,13 @@ const propertySave = async (req, res) => {
       lng,
       priceId,
       categoryId,
+      userId,
+      image: "",
     });
+
+    const { id } = propertySaved;
+
+    res.redirect(`/properties/add-image/${id}`);
   } catch (error) {
     console.log(error);
   }
