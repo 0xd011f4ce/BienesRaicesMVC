@@ -1,6 +1,8 @@
 import express from "express";
 import { body } from "express-validator";
 
+import protectRoute from "../middleware/protectRoute.js";
+
 import {
   admin,
   propertyCreate,
@@ -9,10 +11,11 @@ import {
 
 const router = express.Router();
 
-router.get("/my-properties", admin);
-router.get("/properties/create", propertyCreate);
+router.get("/my-properties", protectRoute, admin);
+router.get("/properties/create", protectRoute, propertyCreate);
 router.post(
   "/properties/create",
+  protectRoute,
   body("title").notEmpty().withMessage("Ad Title is mandatory"),
   body("description")
     .notEmpty()
