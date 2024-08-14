@@ -31,6 +31,6 @@ router.post(
   body("lat").notEmpty().withMessage("Locate property on the map"),
   propertySave
 );
-router.get("/properties/add-image/:id", propertyAddImage);
+router.get("/properties/add-image/:id", protectRoute, propertyAddImage);
 
 export default router;

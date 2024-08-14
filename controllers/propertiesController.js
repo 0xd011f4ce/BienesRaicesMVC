@@ -90,13 +90,20 @@ const propertyAddImage = async (req, res) => {
   // validate the property exists
   const { id } = req.params;
 
-  // validate the property is unpublished
   const property = await Property.findByPk(id);
   if (!property) {
     return res.redirect("/my-properties");
   }
 
+  // validate the property is unpublished
+  if (property.published) {
+    return res.redirect("/my-properties");
+  }
+
   // validate the property belongs to the user
+  if (property.userId !== req.user.id) {
+    return res.redirect("/my-properties");
+  }
 
   res.render("properties/add-image", {
     page: "Add Image",
