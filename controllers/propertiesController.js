@@ -5,7 +5,6 @@ import { Category, Price, Property } from "../models/index.js";
 const admin = (req, res) => {
   res.render("properties/admin", {
     page: "My Properties",
-    header: true,
   });
 };
 
@@ -19,7 +18,6 @@ const propertyCreate = async (req, res) => {
 
   res.render("properties/create", {
     page: "Create Property",
-    header: true,
     csrfToken: req.csrfToken(),
     categories,
     prices,
@@ -40,7 +38,6 @@ const propertySave = async (req, res) => {
 
     return res.render("properties/create", {
       page: "Create Property",
-      header: true,
       csrfToken: req.csrfToken(),
       categories,
       prices,
@@ -89,4 +86,10 @@ const propertySave = async (req, res) => {
   }
 };
 
-export { admin, propertyCreate, propertySave };
+const propertyAddImage = async (req, res) => {
+  res.render("properties/add-image", {
+    page: "Add Image",
+  });
+};
+
+export { admin, propertyCreate, propertySave, propertyAddImage };

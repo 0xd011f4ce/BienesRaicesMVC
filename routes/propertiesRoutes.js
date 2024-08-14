@@ -7,6 +7,7 @@ import {
   admin,
   propertyCreate,
   propertySave,
+  propertyAddImage,
 } from "./../controllers/propertiesController.js";
 
 const router = express.Router();
@@ -30,5 +31,6 @@ router.post(
   body("lat").notEmpty().withMessage("Locate property on the map"),
   propertySave
 );
+router.get("/properties/add-image/:id", propertyAddImage);
 
 export default router;
