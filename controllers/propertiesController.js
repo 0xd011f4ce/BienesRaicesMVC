@@ -106,7 +106,9 @@ const propertyAddImage = async (req, res) => {
   }
 
   res.render("properties/add-image", {
-    page: "Add Image",
+    page: `Add Image: ${property.title}`,
+    csrfToken: req.csrfToken(),
+    property,
   });
 };
 
