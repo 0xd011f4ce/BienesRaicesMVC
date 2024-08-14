@@ -87,6 +87,17 @@ const propertySave = async (req, res) => {
 };
 
 const propertyAddImage = async (req, res) => {
+  // validate the property exists
+  const { id } = req.params;
+
+  // validate the property is unpublished
+  const property = await Property.findByPk(id);
+  if (!property) {
+    return res.redirect("/my-properties");
+  }
+
+  // validate the property belongs to the user
+
   res.render("properties/add-image", {
     page: "Add Image",
   });
