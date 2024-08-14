@@ -26,7 +26,7 @@ eval("(function webpackUniversalModuleDefinition(root, factory) {\n\tif(true)\n\
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var dropzone__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dropzone */ \"./node_modules/dropzone/dist/dropzone.js\");\n\n\ndropzone__WEBPACK_IMPORTED_MODULE_0__.Dropzone.options.image = {\n  dictDefaultMessage: \"Drop images here to upload\",\n  dictRemoveFile: \"Remove Image\",\n  acceptedFiles: \".png, .jpg, .jpeg\",\n  maxFilesize: 5,\n  maxFiles: 1,\n  parallelUploads: 1,\n  autoProcessQueue: false,\n  addRemoveLinks: true,\n};\n\n\n//# sourceURL=webpack://bienesraices_mvc/./src/js/addImage.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var dropzone__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dropzone */ \"./node_modules/dropzone/dist/dropzone.js\");\n\n\nconst token = document.querySelector('meta[name=\"csrf-token\"]').content;\n\ndropzone__WEBPACK_IMPORTED_MODULE_0__.Dropzone.options.image = {\n  dictDefaultMessage: \"Drop images here to upload\",\n  dictRemoveFile: \"Remove Image\",\n  acceptedFiles: \".png, .jpg, .jpeg\",\n  maxFilesize: 5,\n  maxFiles: 1,\n  parallelUploads: 1,\n  autoProcessQueue: false,\n  addRemoveLinks: true,\n  headers: {\n    \"CSRF-Token\": token,\n  },\n};\n\n\n//# sourceURL=webpack://bienesraices_mvc/./src/js/addImage.js?");
 
 /***/ })
 

@@ -32,5 +32,8 @@ router.post(
   propertySave
 );
 router.get("/properties/add-image/:id", protectRoute, propertyAddImage);
+router.post("/properties/add-image/:id", protectRoute, (req, res) => {
+  console.log("Uploading image...");
+});
 
 export default router;
