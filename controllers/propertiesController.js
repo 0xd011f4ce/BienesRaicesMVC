@@ -101,7 +101,7 @@ const propertyAddImage = async (req, res) => {
   }
 
   // validate the property belongs to the user
-  if (property.userId !== req.user.id) {
+  if (property.userId.toString() !== req.user.id.toString()) {
     return res.redirect("/my-properties");
   }
 
@@ -112,4 +112,31 @@ const propertyAddImage = async (req, res) => {
   });
 };
 
-export { admin, propertyCreate, propertySave, propertyAddImage };
+const storeImage = async (req, res) => {
+  const { id } = req.params;
+
+  const property = await Property.findByPk(id);
+  if (!property) {
+    return res.redirect("/my-properties");
+  }
+
+  if (property.published) {
+    return res.redirect("/my-properties");
+  }
+
+  if (property.userId.toString() !== req.user.id.toString()) {
+    return res.redirect("/my-properties");
+  }
+
+  try {
+    // store the image and publish property
+    property.image = req.file.filename; // file is added by multer
+    property.published = true;
+
+    await property.save();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export { admin, propertyCreate, propertySave, propertyAddImage, storeImage };

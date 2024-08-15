@@ -9,6 +9,7 @@ import {
   propertyCreate,
   propertySave,
   propertyAddImage,
+  storeImage,
 } from "./../controllers/propertiesController.js";
 
 const router = express.Router();
@@ -37,9 +38,7 @@ router.post(
   "/properties/add-image/:id",
   protectRoute,
   upload.single("image"),
-  (req, res) => {
-    console.log("Uploading image...");
-  }
+  storeImage
 );
 
 export default router;
