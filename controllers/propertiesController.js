@@ -134,6 +134,8 @@ const storeImage = async (req, res) => {
     property.published = true;
 
     await property.save();
+
+    res.redirect("/my-properties");
   } catch (err) {
     console.log(err);
   }
