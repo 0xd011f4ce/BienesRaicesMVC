@@ -179,12 +179,48 @@ const propertyEdit = async (req, res) => {
   ]);
 
   res.render("properties/edit", {
-    page: "Edit Property",
+    page: `Edit Property: ${property.title}`,
     csrfToken: req.csrfToken(),
     categories,
     prices,
     data: property,
   });
+};
+
+const propertySaveChanges = async (req, res) => {
+  // Verify the validation
+  let result = validationResult(req);
+
+  if (!result.isEmpty()) {
+    const [categories, prices] = await Promise.all([
+      Category.findAll(),
+      Price.findAll(),
+    ]);
+
+    return res.render("properties/edit", {
+      page: "Edit Property",
+      csrfToken: req.csrfToken(),
+      categories,
+      prices,
+      errors: result.array(),
+      data: req.body,
+    });
+  }
+
+  const { id } = req.params;
+
+  // validate property exists
+  const property = await Property.findByPk(id);
+  if (!property) {
+    return res.redirect("/my-properties");
+  }
+
+  // check who visits the url is the owner
+  if (property.userId.toString() !== req.user.id.toString()) {
+    return res.redirect("/my-properties");
+  }
+
+  // save the changes
 };
 
 export {
@@ -194,4 +230,5 @@ export {
   propertyAddImage,
   storeImage,
   propertyEdit,
+  propertySaveChanges,
 };
