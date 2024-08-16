@@ -183,7 +183,7 @@ const propertyEdit = async (req, res) => {
     csrfToken: req.csrfToken(),
     categories,
     prices,
-    data: {},
+    data: property,
   });
 };
 
