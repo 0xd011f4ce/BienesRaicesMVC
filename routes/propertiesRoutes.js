@@ -12,6 +12,7 @@ import {
   storeImage,
   propertyEdit,
   propertySaveChanges,
+  deleteProperty,
 } from "./../controllers/propertiesController.js";
 
 const router = express.Router();
@@ -64,5 +65,7 @@ router.post(
   body("lat").notEmpty().withMessage("Locate property on the map"),
   propertySaveChanges
 );
+
+router.post("/properties/delete/:id", protectRoute, deleteProperty);
 
 export default router;

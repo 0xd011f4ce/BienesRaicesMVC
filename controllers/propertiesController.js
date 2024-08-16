@@ -1,3 +1,4 @@
+import { unlink } from "node:fs/promises";
 import { validationResult } from "express-validator";
 
 import { Category, Price, Property } from "../models/index.js";
@@ -23,6 +24,7 @@ const admin = async (req, res) => {
   res.render("properties/admin", {
     page: "My Properties",
     properties,
+    csrfToken: req.csrfToken(),
   });
 };
 
@@ -255,6 +257,27 @@ const propertySaveChanges = async (req, res) => {
   }
 };
 
+const deleteProperty = async (req, res) => {
+  const { id } = req.params;
+
+  const property = await Property.findByPk(id);
+
+  if (!property) {
+    return res.redirect("/my-properties");
+  }
+
+  if (property.userId.toString() !== req.user.id.toString()) {
+    return res.redirect("/my-properties");
+  }
+
+  // delete the image
+  await unlink(`public/uploads/${property.image}`);
+
+  // delete the property
+  await property.destroy();
+  res.redirect("/my-properties");
+};
+
 export {
   admin,
   propertyCreate,
@@ -263,4 +286,5 @@ export {
   storeImage,
   propertyEdit,
   propertySaveChanges,
+  deleteProperty,
 };
