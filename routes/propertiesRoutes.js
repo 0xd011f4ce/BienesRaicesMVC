@@ -10,11 +10,13 @@ import {
   propertySave,
   propertyAddImage,
   storeImage,
+  propertyEdit,
 } from "./../controllers/propertiesController.js";
 
 const router = express.Router();
 
 router.get("/my-properties", protectRoute, admin);
+
 router.get("/properties/create", protectRoute, propertyCreate);
 router.post(
   "/properties/create",
@@ -33,12 +35,16 @@ router.post(
   body("lat").notEmpty().withMessage("Locate property on the map"),
   propertySave
 );
+
 router.get("/properties/add-image/:id", protectRoute, propertyAddImage);
+
 router.post(
   "/properties/add-image/:id",
   protectRoute,
   upload.single("image"),
   storeImage
 );
+
+router.get("/properties/edit/:id", protectRoute, propertyEdit);
 
 export default router;

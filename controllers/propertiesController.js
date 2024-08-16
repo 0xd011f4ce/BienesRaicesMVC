@@ -159,4 +159,39 @@ const storeImage = async (req, res) => {
   }
 };
 
-export { admin, propertyCreate, propertySave, propertyAddImage, storeImage };
+const propertyEdit = async (req, res) => {
+  const { id } = req.params;
+
+  // validate property exists
+  const property = await Property.findByPk(id);
+  if (!property) {
+    return res.redirect("/my-properties");
+  }
+
+  // check who visits the url is the owner
+  if (property.userId.toString() !== req.user.id.toString()) {
+    return res.redirect("/my-properties");
+  }
+
+  const [categories, prices] = await Promise.all([
+    Category.findAll(),
+    Price.findAll(),
+  ]);
+
+  res.render("properties/edit", {
+    page: "Edit Property",
+    csrfToken: req.csrfToken(),
+    categories,
+    prices,
+    data: {},
+  });
+};
+
+export {
+  admin,
+  propertyCreate,
+  propertySave,
+  propertyAddImage,
+  storeImage,
+  propertyEdit,
+};
