@@ -221,6 +221,38 @@ const propertySaveChanges = async (req, res) => {
   }
 
   // save the changes
+  try {
+    const {
+      title,
+      description,
+      rooms,
+      garages,
+      wc,
+      street,
+      lat,
+      lng,
+      price: priceId,
+      category: categoryId,
+    } = req.body;
+
+    property.set({
+      title,
+      description,
+      rooms,
+      garages,
+      wc,
+      street,
+      lat,
+      lng,
+      priceId,
+      categoryId,
+    });
+
+    await property.save();
+    res.redirect("/my-properties");
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export {
