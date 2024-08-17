@@ -278,6 +278,11 @@ const deleteProperty = async (req, res) => {
   res.redirect("/my-properties");
 };
 
+// shows a property
+const showProperty = async (req, res) => {
+  res.render("properties/show");
+};
+
 export {
   admin,
   propertyCreate,
@@ -287,4 +292,5 @@ export {
   propertyEdit,
   propertySaveChanges,
   deleteProperty,
+  showProperty,
 };

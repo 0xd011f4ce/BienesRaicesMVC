@@ -13,6 +13,7 @@ import {
   propertyEdit,
   propertySaveChanges,
   deleteProperty,
+  showProperty,
 } from "./../controllers/propertiesController.js";
 
 const router = express.Router();
@@ -67,5 +68,8 @@ router.post(
 );
 
 router.post("/properties/delete/:id", protectRoute, deleteProperty);
+
+// public
+router.get("/property/:id", showProperty);
 
 export default router;
