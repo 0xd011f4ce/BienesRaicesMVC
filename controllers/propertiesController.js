@@ -280,7 +280,29 @@ const deleteProperty = async (req, res) => {
 
 // shows a property
 const showProperty = async (req, res) => {
-  res.render("properties/show");
+  const { id } = req.params;
+
+  // verify the property exists
+  const property = await Property.findByPk(id, {
+    include: [
+      {
+        model: Category,
+        as: "category",
+      },
+      {
+        model: Price,
+        as: "price",
+      },
+    ],
+  });
+  if (!property) {
+    return res.redirect("/404");
+  }
+
+  res.render("properties/show", {
+    property,
+    page: property.title,
+  });
 };
 
 export {
